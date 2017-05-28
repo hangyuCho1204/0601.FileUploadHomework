@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.file.ver1.mapper.FileMapper">
+	<resultMap type="com.file.ver1.dto.FileModel" id="filesJoinFileBoard">
+		<id property="id" column="id" />
+		<result property="writer" column="writer"/>
+		<result property="title" column="title"/>
+		<collection property="files" column="id" select="getFileBoardId"></collection>
+	</resultMap>
+	
+	<select id="join" parameterType="int" resultMap="filesJoinFileBoard">
+		select * from fileboard where id = #{id}
+	</select>
+	
+	<select id="getFileBoardId" parameterType="int" resultType="com.file.ver1.dto.EntityFiles">
+		select * from files where fileboardid = #{id}
+	</select>
+</mapper>
